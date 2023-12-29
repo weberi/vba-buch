@@ -7,79 +7,128 @@
 
 
 ' ---------------------------------------------------------------------------
-' 12.3.1  Code-Beispiel: Umgang mit Modellen - PartDoc
+' 11.4.1  SAP GUI-Skript aus der Wirtsanwendung Excel starten
+
 ' ---------------------------------------------------------------------------
 
-Sub DemoPartDoc()
-Dim swApp As SldWorks.SldWorks
-Set swApp = Application.SldWorks
-Dim teil As PartDoc
-On Error GoTo NOT_A_PART
-Set teil = swApp.ActiveDoc
-Debug.Print "Teil"
-      ' Tue etwas mit dem Teil ...
+Sub Starten()
+Dim SapGuiAuto
+Dim sapApp As SAPFEWSELib.GuiApplication
+Dim connection As SAPFEWSELib.GuiConnection
+Dim session As SAPFEWSELib.GuiSession
+On Error GoTo START_FEHLER
+Set SapGuiAuto = GetObject("SAPGUI")
+Set sapApp = SapGuiAuto.GetScriptingEngine
+Set connection = sapApp.Children(0)
+Set session = connection.Children(0)
+On Error GoTo 0
+
+If (sapApp.Children.Count > 1) Or connection.Children.Count > 1 Then
+  MsgBox "SAP-Anmeldung nicht eindeutig. " _
+    & "Bitte nur einmal anmelden!", , "SAP GUI Skript"
+   Exit Sub
+End If
+If (session.info.User = vbNullString) Then
+  MsgBox "Kein SAP-User angemeldet. " _
+    & "Bitte am System anmelden!", , "SAP GUI Skript"
+   Exit Sub
+End If
+Bearbeiten session ' hier passiert etwas Nützliches
 Exit Sub
-NOT_A_PART:
-  MsgBox ("Nur Teil möglich")
+START_FEHLER:
+MsgBox "Keine SAP-Session gefunden. " _
+  & "Bitte SAP starten und anmelden!", , "SAP GUI Skript"
 End Sub
 
 ' ---------------------------------------------------------------------------
-' 12.3.1  Code-Beispiel: Umgang mit Modellen -DemoInterfaceType
+' 11.4.4  Code bearbeiten und zusammenstellen
 ' ---------------------------------------------------------------------------
-Sub DemoInterfaceType ()
-Dim swApp As SldWorks.SldWorks
-Set swApp = Application.SldWorks
-Dim modell As ModelDoc2
+Sub Bearbeiten(ss As SAPFEWSELib.GuiSession)
+Dim zeile As Long
+zeile = 2
+Do While Cells(zeile, 1).Value <> ""
+  MaterialBearbeiten ss, zeile
+  zeile = zeile + 1
+Loop
+End Sub
+Sub MaterialBearbeiten (ss As SAPFEWSELib.GuiSession, zeile As Long)
+Dim mainw As SAPFEWSELib.GuiMainWindow
+Dim statuszeile As SAPFEWSELib.GuiStatusbar
+Set mainw = ss.FindById("wnd[0]")
+mainw.FindById("tbar[0]/okcd").Text = "/nMM02"
+mainw.sendVKey 0
+mainw.FindById("usr/ctxtRMMG1-MATNR").Text = Cells(zeile, 1).Value
+mainw.sendVKey 0
+If IstMaterialFalsch(ss, zeile) Then
+  Exit Sub
+End If
+ss.FindById("wnd[1]/usr/tblSAPLMGMMTC_VIEW").GetAbsoluteRow(0).Selected
+=
+True
+ss.FindById("wnd[1]/usr/tblSAPLMGMMTC_VIEW").GetAbsoluteRow(3).Selected
+=
+True
+ss.FindById("wnd[1]/tbar[0]/btn[0]").press
+ss.FindById("wnd[1]/usr/ctxtRMMG1-WERKS").Text = Cells(zeile,
+2).Value
+ss.FindById("wnd[1]/usr/ctxtRMMG1-VKORG").Text = Cells(zeile,
+3).Value
 
-Dim teil As PartDoc
-
-Dim baugruppe As AssemblyDoc
-Set modell = swApp.ActiveDoc
-Select Case modell.GetType
-  Case swDocPART:
-    Set teil = modell
-    Debug.Print "Teil"      
-       ' Tue etwas mit dem Teil ...
-  Case swDocASSEMBLY:
-    Set baugruppe = modell
-     Debug.Print "Baugruppe"
-       ' Tue etwas mit der Baugruppe ...
-  Case Else
-    MsgBox ("Nur Teil oder Baugruppe möglich")
-End Select
+ss.FindById("wnd/usr/ctxtRMMG1-VTWEG").Text = Cells(zeile, 4).Value
+ss.FindById("wnd[1]/tbar[0]/btn[0]").press
+If IstOrgFalsch(ss, zeile) Then
+  Exit Sub
+End If
+mainw.FindByName("MARA-VOLUM", "GuiTextField").Text = Cells(zeile, 
+5).Value
+mainw.FindByName("MARA-VOLEH", "GuiCTextField").Text = Cells(zeile,
+6).Value
+mainw.FindByName("MARA-GROES", "GuiTextField").Text = Cells(zeile,
+7).Value
+mainw.FindById("tbar[0]/btn[11]").press
+Abschliessen ss, zeile
 End Sub
 
 ' ---------------------------------------------------------------------------
-' 12.3.2  Code-Beispiel: Elemente selektieren
+' 11.4.5.1. Fehler „Falsches Material“
 ' ---------------------------------------------------------------------------
-Sub DemoSelect()
-Dim swApp As Object
-Dim SelMgr As SelectionMgr
-Dim boolStatus As Boolean
-Dim teil As PartDoc
-Dim sk As SketchSegment
+Function IstMaterialFalsch(ss As GuiSession, zeile As Long) As Boolean
+Dim statuszeile As GuiStatusbar
+Set statuszeile = ss.FindById("wnd[0]/sbar")
+Cells(zeile, 8).Value = statuszeile.Messagetype
+Cells(zeile, 9).Value = statuszeile.Text
 
-Set swApp = Application.SldWorks
-Set teil = swApp.ActiveDoc
+If statuszeile.Messagetype = "E" Then
+  ss.FindById("wnd[0]/tbar[0]/btn[15]").press
+  IstMaterialFalsch = True
+End If
+End Function
 
-boolStatus = teil.Extension _
- .SelectByID2("Line1", "SKETCHSEGMENT", 0, 0, 0, False, 0, Nothing, 0)
-Debug.Print boolStatus
+' ---------------------------------------------------------------------------
+'  11.4.5.2. Fehler „Falsche Organisationseinheit“
+' ---------------------------------------------------------------------------
+Function IstOrgFalsch(ss As GuiSession, zeile As Long) As Boolean
+Dim statuszeile As GuiStatusbar
+If ss.ActiveWindow.Text = "Fehler" Then
+  Cells(zeile, 8).Value = "E"
+  Cells(zeile, 9).Value = ss.FindById("wnd[2]/usr/txtMESSTXT1").Text
+  ss.FindById("wnd[2]/tbar[0]/btn[0]").press
+  ss.FindById("wnd[1]/tbar[0]/btn[12]").press
+  IstOrgFalsch = True
+End If
+End Function
 
-boolStatus = teil.Extension _
- .SelectByID2("Line2", "SKETCHSEGMENT", 0, 0, 0, True, 0, Nothing, 0)
-Debug.Print boolStatus
 
-Set SelMgr = teil.SelectionManager
-Set sk = SelMgr.GetSelectedObject(1)
-
-Debug.Print sk.GetName
-Debug.Print sk.GetLength
-sk.Color = vbYellow
-Set sk = SelMgr.GetSelectedObject(2)
-
-Debug.Print sk.GetName
-Debug.Print sk.GetLength
-sk.Color = vbGreen
-sk.DeSelect
+' ---------------------------------------------------------------------------
+' 11.4.5.3  Fehler Falscher Wert
+' ---------------------------------------------------------------------------
+Sub Abschliessen(ss As GuiSession, zeile As Long)
+Dim statuszeile As GuiStatusbar
+Set statuszeile = ss.FindById("wnd[0]/sbar")
+Cells(zeile, 8).Value = statuszeile.Messagetype
+Cells(zeile, 9).Value = statuszeile.Text
+If statuszeile.Messagetype = "E" Then
+  ss.FindById("wnd[0]/tbar[0]/btn[15]").press
+  ss.FindById("wnd[1]/usr/btnSPOP-OPTION2").press
+  End If
 End Sub

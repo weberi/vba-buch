@@ -24,7 +24,7 @@ Debug.Print a1
 End Sub
 
 Sub SichtbarDemo()      ' Ausgabe:
-Debug.Print a1c          ' beim 1. Ausführen "", danach "Modulebene"
+Debug.Print a1          ' beim 1. Ausführen "", danach "Modulebene"
 ModulVarSetzen          ' "Modulebene"
 ProzedurVarSetzen       ' "Prozedurebene"
 ModulVarLesen           ' "Modulebene"

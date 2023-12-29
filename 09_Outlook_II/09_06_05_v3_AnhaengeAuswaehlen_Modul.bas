@@ -28,7 +28,7 @@ ElseIf TypeName(ActiveWindow) = "Inspector" Then
 End If
 
 If nachricht Is Nothing Then     ' sollte nie vorkommen
-  MsgBox ("Funktion AnhängeAuswählen ist hier nicht möglich.")
+  MsgBox ("Funktion Anhänge ist hier nicht möglich.")
   Exit Sub
 End If
 

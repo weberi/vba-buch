@@ -32,6 +32,6 @@ Select Case Err.Number
       Chr(13) & "Bitte die Datei hier ablegen: " & ThisWorkbook.Path)
   Case 9
     MsgBox ("Fehler in Datei " & dateiname & "." & _
-    Chr(13) & "Es gibt kein Arbeitsblatt " & blattname & ".")
+      Chr(13) & "Es gibt kein Arbeitsblatt " & blattname & ".")
 End Select
 End Sub

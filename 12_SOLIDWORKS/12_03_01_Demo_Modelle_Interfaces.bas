@@ -17,7 +17,7 @@ Dim teil As PartDoc
 On Error GoTo NOT_A_PART
 Set teil = swApp.ActiveDoc
 Debug.Print "Teil"
-      ' Tue etwas mit dem Teil ...
+      ' Tu etwas mit dem Teil ...
 Exit Sub
 NOT_A_PART:
   MsgBox ("Nur Teil möglich")

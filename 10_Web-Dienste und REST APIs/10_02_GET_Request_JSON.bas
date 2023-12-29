@@ -15,7 +15,7 @@
 ' ---------------------------------------------------------------------------
 Const ZIP_URL As String = "https://api.zippopotam.us/DE/"
 Sub zipcode()
-' Einfacher GET-Request ohne Authentifizierung
+' Einfacher GET Request ohne Authentifizierung
 Dim zip As String
 Dim req As String
 Dim XMLHttp As New MSXML2.ServerXMLHTTP60

@@ -22,7 +22,7 @@ c = c + 1  ' der Wert von c wird um 1 erhoeht
 d = a + b  ' Addition mit 2 Variablen und Wertzuweisung
 erg = "c = " & c & " und d = " & d ' baut einen String und speichert 
                                   ' ihn in eine Variable
-Debug.Print erg                   ' gibt den gespeicherten String aus
+Debug.Print erg                   ' c = 6 und d = 55
 End Sub
 
 ' ---------------------------------------------------------------------------
