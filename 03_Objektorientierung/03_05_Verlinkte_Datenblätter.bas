@@ -63,8 +63,8 @@ Do While listeBlatt.Cells(z, 1) <> ""
       ScreenTip:="Gehe zu Start", _
       TextToDisplay:=START_NAME
     .Columns.AutoFit
-    z = z + 1
-    End With
+  End With   
+  z = z + 1 
 Loop
 End Sub
 
@@ -87,10 +87,10 @@ For Each blatt In Worksheets
     If .Name <> START_NAME And .Name <> LISTE_NAME Then
       zellenAdr = "'" & .Name & "'!A1"
       blatt.Hyperlinks.Add Anchor:=startBlatt.Cells(z, 2), _
-      Address:="", _
-      subaddress:=zellenAdr, _
-      ScreenTip:="Zu " & .Name, _
-      TextToDisplay:=.Name
+        Address:="", _
+        subaddress:=zellenAdr, _
+        ScreenTip:="Zu " & .Name, _
+        TextToDisplay:=.Name
       z = z + 1
     End If
   End With
