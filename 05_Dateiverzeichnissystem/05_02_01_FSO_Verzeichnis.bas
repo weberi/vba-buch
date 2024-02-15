@@ -15,7 +15,7 @@ Dim dat As File
 Dim verz As Folder
 
 Debug.Print "Aktuelles Verzeichnis: " & FSO.GetFolder(".").Path
-Debug.Print "Hinterlegter Pfad " & ThisWorkbook.Path
+Debug.Print "Hinterlegter Pfad: " & ThisWorkbook.Path
 Debug.Print
 
 Set laufw = FSO.Drives("c")
