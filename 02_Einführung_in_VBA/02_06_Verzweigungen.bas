@@ -57,7 +57,7 @@ ElseIf land = "Schweden" Then
 ElseIf land = "Großbritannien" Then
   Debug.Print "GBP"
 Else
-   Debug.Print "EUR"
+  Debug.Print "EUR"
 End If
 End Sub 
 
