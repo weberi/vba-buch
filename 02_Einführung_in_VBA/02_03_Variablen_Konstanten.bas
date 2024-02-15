@@ -35,8 +35,8 @@ vektor(2) = 150
 vektor(3) = 170
 vektor(4) = 200
 vektor(5) = 201
-Debug.Print vektor(2) + vektor(3)
-vektor(0) = 3 ' Index-Fehler!!
+Debug.Print vektor(2) + vektor(3)   ' 320
+vektor(0) = 3    ' Index-Fehler!!
 End Sub
 
 ' ---------------------------------------------------------------------------
