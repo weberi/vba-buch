@@ -22,7 +22,6 @@ On Error Resume Next
 Err.Clear
 
 Set wkbDaten = Workbooks.Open(ThisWorkbook.Path & "\" & dateiname)
-
 If Err.Number <> 0 Then
   MsgBox ("Fehler beim Zugriff auf " & dateiname & "." & _
      Chr(13) & "Bitte die Datei hier ablegen: " & ThisWorkbook.Path)
