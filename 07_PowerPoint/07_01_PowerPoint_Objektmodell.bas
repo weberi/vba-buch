@@ -32,9 +32,9 @@ Set elem = ActivePresentation.Slides(1). _
 If elem.HasTextFrame Then
   If elem.TextFrame.HasText Then
     With elem.TextFrame.TextRange
-     Debug.Print Left(.Text, 10) & "..."   ' Dies ist e...
-     Debug.Print .Length                   '   97
-     Debug.Print .Words.Count              '   19 
+      Debug.Print Left(.Text, 10) & "..."   ' Dies ist e...
+      Debug.Print .Length                   '   97
+      Debug.Print .Words.Count              '   19 
       .Words(19).Font.Size = 44
       .Words(19).Font.Name = "Times New Roman"
       .Words(19).Font.Italic = msoTrue
