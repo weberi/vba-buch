@@ -18,7 +18,7 @@ Private Const LOGVERZEICHNIS As String = "Logs\"
 Sub Main()
   SchreibeLog ("Dies ist ein Text")
   SchreibeLog ("Dies ist noch ein Text")
-            CloseLog
+  CloseLog
 End Sub
 
 ' ---------------------------------------------------------------------------
