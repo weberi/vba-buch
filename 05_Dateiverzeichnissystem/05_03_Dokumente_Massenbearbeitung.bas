@@ -61,7 +61,7 @@ For Each dat In verzeichnis.Files
   If dat.Type = "Microsoft Word-Dokument" Then
     dat.Copy (datpfad)                                   ' v1
 '    Set dok = WordApp.Documents.Open(dat.Path)          ' v2
-'    dok.ApplyQuickStyleSet2 (NEUER_STIL)        ' v2
+'    dok.ApplyQuickStyleSet2 (NEUER_STIL)                ' v2
 '    dok.SaveAs (datpfad)                                ' v2
 '    dok.Close                                           ' v2
   End If
