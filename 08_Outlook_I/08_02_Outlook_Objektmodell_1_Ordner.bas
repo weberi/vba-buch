@@ -27,7 +27,7 @@ Debug.Print ordner.Name & ordner.Items.Count
 End Sub
 
 ' ---------------------------------------------------------------------------
-' 8.2.3 Navigation durch die Ordnerstruktur mit
+' 8.2.4 Navigation durch die Ordnerstruktur mit
 ' Parent und Folders
 ' ---------------------------------------------------------------------------
 Sub OrdnerNavigieren()
@@ -63,7 +63,7 @@ Set olApp = Nothing
 End Sub
 
 ' ---------------------------------------------------------------------------
-' 8.2.5  Direkter Zugriff auf Ordner mit der EntryID  - PerEntryIDZugreifen
+' 8.2.6  Direkter Zugriff auf Ordner mit der EntryID  - PerEntryIDZugreifen
 ' ---------------------------------------------------------------------------
 Sub PerEntryIDZugreifen()
 Dim olApp As Outlook.Application
