@@ -108,7 +108,7 @@ For Each ctrl In Me.Controls
   If Left(ctrl.Name, 5) = "cbdat" Then
     Set cbox = ctrl
     If cbox.Value Then
-     colDateien.Add ctrl.Caption
+      colDateien.Add ctrl.Caption
     End If
   End If
 Next ctrl
@@ -120,7 +120,7 @@ End Sub
 ' ---------------------------------------------------------------------------
 
 Private Sub btnKonfig_Click()
-    Me.lblPfad = "Konfiguration startet gleich ..."
-    AnhangKonfigurierenPicker   ' statt AnhangKonfigurieren
-    UserForm_Initialize
+  Me.lblPfad = "Konfiguration startet gleich ..."
+  AnhangKonfigurierenPicker   ' statt AnhangKonfigurieren
+  UserForm_Initialize
 End Sub
