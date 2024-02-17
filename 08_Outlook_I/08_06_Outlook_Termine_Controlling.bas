@@ -22,9 +22,9 @@ Dim zeile As Integer: zeile = 1
 Set kalender = olApp.Session.GetDefaultFolder(olFolderCalendar)
 
 filter1 = _
-   """urn:schemas:calendar:dtstart"" >= '2023/01/01'"
+    """urn:schemas:calendar:dtstart"" >= '2023/01/01'"
 filter2 = _
-  """urn:schemas:calendar:dtstart"" <= '2023/12/31'"
+    """urn:schemas:calendar:dtstart"" <= '2023/12/31'"
 filterKomp = "@SQL= " & filter1 & " AND " & filter2
 Set treffenTabelle = kalender.GetTable(filterKomp)
 
