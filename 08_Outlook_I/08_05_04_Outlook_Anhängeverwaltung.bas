@@ -22,24 +22,24 @@ Dim mailitm As Object
 On Error GoTo Fehler
 
 filter1 = _
-    """http://schemas.microsoft.com/mapi/proptag/0x001a001e"" _
-    = 'ipm.Note'"
+    """http://schemas.microsoft.com/mapi/proptag/0x001a001e"" & _
+        = 'ipm.Note'"
 filter2 = _
-   """urn:schemas:httpmail:subject"" LIKE  '%Protokoll%'"
+    """urn:schemas:httpmail:subject"" LIKE  '%Protokoll%'"
 filter3 = _
     """urn:schemas:httpmail:datereceived"" >= " & DreiMonateZurueck
 filter4 = """urn:schemas:httpmail:hasattachment"" = 1 "
 filterKomplett = "@SQL= " & filter1 & " AND " & filter2 _
-          & " AND " & filter3 & " AND " & filter4
+    & " AND " & filter3 & " AND " & filter4
 
 Debug.Print filterKomplett
 
 Set eingang = olApp.GetNamespace("MAPI"). _
-  GetDefaultFolder(olFolderInbox)
+    GetDefaultFolder(olFolderInbox)
 Set protokolle = eingang.Items.Restrict(filterKomplett)
 For Each mailitm In protokolle
-    mailitm.Attachments(1).SaveAsFile protPfad & "\" _
-          & mailitm.Attachments(1).Filename
+  mailitm.Attachments(1).SaveAsFile protPfad & "\" _
+      & mailitm.Attachments(1).Filename
 Next mailitm
 
 Set mailitm = Nothing
@@ -47,7 +47,7 @@ Exit Sub
 
 Fehler:
 If Err.Number <> 0 Then
-    Debug.Print Err.Number & ": " & Err.Description
+  Debug.Print Err.Number & ": " & Err.Description
 End If
 Resume Next
 End Sub
