@@ -20,7 +20,7 @@ Dim dat As Variant
 If TypeName(ActiveWindow) = "Explorer" Then
   If Not ActiveExplorer.ActiveInlineResponse Is Nothing Then
     Set nachricht = ActiveExplorer.ActiveInlineResponse
-    End If
+  End If
 ElseIf TypeName(ActiveWindow) = "Inspector" Then
   If TypeOf ActiveInspector.CurrentItem Is Outlook.mailItem Then
     Set nachricht = ActiveInspector.CurrentItem
