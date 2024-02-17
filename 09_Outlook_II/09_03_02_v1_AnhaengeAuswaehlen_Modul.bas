@@ -27,18 +27,18 @@ Dim auswahlForm As AnhaengeAuswahlForm
 Dim nachricht As MailItem
 ' auf die Nachricht zugreifen
 If TypeName(ActiveWindow) = "Explorer" Then
-    If Not ActiveExplorer.ActiveInlineResponse Is Nothing Then
-        Set nachricht = ActiveExplorer.ActiveInlineResponse
-     End If
+  If Not ActiveExplorer.ActiveInlineResponse Is Nothing Then
+    Set nachricht = ActiveExplorer.ActiveInlineResponse
+  End If
 ElseIf TypeName(ActiveWindow) = "Inspector" Then
-    If TypeOf ActiveInspector.CurrentItem Is Outlook.MailItem Then
-        Set nachricht = ActiveInspector.CurrentItem
-     End If 
+  If TypeOf ActiveInspector.CurrentItem Is Outlook.MailItem Then
+    Set nachricht = ActiveInspector.CurrentItem
+  End If 
 End If  
 
 If nachricht Is Nothing Then     ' sollte nie vorkommen
-    MsgBox ("Funktion Anhänge ist hier nicht möglich.")
-    Exit Sub
+  MsgBox ("Funktion Anhänge ist hier nicht möglich.")
+  Exit Sub
 End If
 
 ' Auswahlform anzeigen
@@ -47,13 +47,13 @@ auswahlForm.Show
 ' Benutzer bedient die UserForm ...
 '  ... jetzt sind in der UserForm die Variablen istAnhang_* gesetzt
 If istAnhang1 Then
-    nachricht.Attachments.Add verzeichnispfad & anhang1
+  nachricht.Attachments.Add verzeichnispfad & anhang1
 End If
 If istAnhang2 Then
-    nachricht.Attachments.Add verzeichnispfad & anhang2
+  nachricht.Attachments.Add verzeichnispfad & anhang2
 End If
 If istAnhang3 Then
-    nachricht.Attachments.Add verzeichnispfad & anhang3
+  nachricht.Attachments.Add verzeichnispfad & anhang3
 End If
 Set nachricht = Nothing
 Set auswahlForm = Nothing
