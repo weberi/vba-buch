@@ -26,12 +26,12 @@ On Error GoTo 0
 If (sapApp.Children.Count > 1) Or connection.Children.Count > 1 Then
   MsgBox "SAP-Anmeldung nicht eindeutig. " _
     & "Bitte nur einmal anmelden!", , "SAP GUI Skript"
-   Exit Sub
+  Exit Sub
 End If
 If (session.info.User = vbNullString) Then
   MsgBox "Kein SAP-User angemeldet. " _
     & "Bitte am System anmelden!", , "SAP GUI Skript"
-   Exit Sub
+  Exit Sub
 End If
 Bearbeiten session ' hier passiert etwas Nützliches
 Exit Sub
