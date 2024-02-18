@@ -108,8 +108,8 @@ Dim OFFSET as Double
 OFFSET = 0.015
 ' reset
 If p1.x = p2.x And p1.y = p2.y Then   
- maxkoord.x = 0
- maxkoord.y = 0
+  maxkoord.x = 0
+  maxkoord.y = 0
 End If
 ' init
 If maxkoord.x = 0 Then   
