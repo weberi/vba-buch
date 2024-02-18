@@ -20,7 +20,8 @@ On Error GoTo 0
 WScript.ConnectObject session, "on"
 WScript.ConnectObject Application, "on"
 With SessionInfo
-  msgResult = MsgBox("System: " & .SystemName & " Mandant: " & .Client & _
+  msgResult = MsgBox("System: " & .SystemName & _
+  " Mandant: " & .Client & _
   " User: " & .User & " Tcode: " & .Transaction & vbLf & _
   "Starten?", vbYesNo, "SAP GUI Skript")
 End With
