@@ -42,7 +42,7 @@ Select Case modell.GetType
        ' Tue etwas mit dem Teil ...
   Case swDocASSEMBLY:
     Set baugruppe = modell
-     Debug.Print "Baugruppe"
+    Debug.Print "Baugruppe"
        ' Tue etwas mit der Baugruppe ...
   Case Else
     MsgBox ("Nur Teil oder Baugruppe möglich")
